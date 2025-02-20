@@ -23,10 +23,13 @@ def main():
         end_time = perf_counter()
         contiguity_errors = check_contiguity(sections)
         bad_start_errors = check_start_idx(sections)
-        if contiguity_errors + bad_start_errors == 0:
+        word_count_errors = check_word_counts(sections, transcript)
+        if contiguity_errors + bad_start_errors + word_count_errors == 0:
             print("OK")
         else:
-            print(f"{contiguity_errors} contiguity errors, {bad_start_errors} start_errors")
+            print(f"{contiguity_errors} contiguity errors")
+            print(f"{bad_start_errors} start_errors")
+            print(f"{word_count_errors} word count errors")
         print(f"Segmented in {end_time - start_time:.1f}")
 
 def check_contiguity(sections) -> int:
@@ -48,6 +51,14 @@ def check_start_idx(sections):
             errcount += 1
     return errcount
 
+def check_word_counts(sections, transcript):
+    errcount = 0
+    transcript_wc = len(transcript.split())
+    sections_wc = sum([section["word_count"] for section in sections])
+    if transcript_wc != sections_wc:
+        print(f"Word count mismatch. Expected {transcript_wc}, got {sections_wc}.")
+        errcount += 1
+    return errcount
 
 if __name__ == "__main__":
     main()
