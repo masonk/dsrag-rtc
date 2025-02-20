@@ -3,11 +3,11 @@ from time import perf_counter
 from dsrag.dsparse.main import parse_and_chunk
 from transcript import transcript
 
-os.environ["OPENAI_API_KEY"] = "<YOUR KEY>"
+os.environ["OPENAI_API_KEY"] = ""
 # This frequently reports errors when run on Python 3.12.9
 # start errors are more common but we also see contiguity errors in our database
 def main():
-    for _ in range(0, 1):
+    for _ in range(0, 10):
         start_time = perf_counter()
         sections, chunks = parse_and_chunk(
             kb_id="test",

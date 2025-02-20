@@ -1,1 +1,1 @@
-dsrag
+git+https://github.com/D-Star-AI/dsRAG.git
